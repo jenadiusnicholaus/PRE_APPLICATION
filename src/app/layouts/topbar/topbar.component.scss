@@ -1,4 +1,12 @@
 .centered-header-text{
-    background-color: black;
     width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.new-header{
+    border-bottom: 4px solid #42B3E5;
+    background: white;
 }
