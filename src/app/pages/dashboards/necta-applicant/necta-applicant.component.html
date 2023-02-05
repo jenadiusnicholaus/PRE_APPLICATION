@@ -1,0 +1,171 @@
+
+<div class="col-lg-12">
+  <div class="card">
+    <div class="card-body text-center">
+      <h4 class="card-title text-center">Enter your index number you intended to use  for admission (TCU)</h4>
+      <ngb-alert *ngIf="optionNotSeclectError" type="warning">
+        {{optionNotSeclectError}}
+      </ngb-alert>
+      <p class="card-title-desc text-center">Jaza namba yako ya kidato che Nne utakayotumia kuomba chuo</p>
+      
+        <div class="row">
+          <div class="col-md-3">
+            <div class="mb-3 position-relative">
+              <label for="candidate_type">Candidate Type (S or P)</label>
+              <select [(ngModel)]="selectedOption" class="form-select" id="candidate_type" placeholder="School Number (Eg. 1589)" >
+                <option selected disabled value="">Choose...</option>
+                <option *ngFor="let option of options" [value]="option.value">{{ option.label }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="mb-3 position-relative">
+              <label for="validationTooltipUsername">School Number (Eg. 1589)	</label>
+              <div class="input-group">
+                <input type="text" [(ngModel)]="sufix_school_center" (keyup)="centerNumberonKeyUp($event)" class="form-control" id="school_number" placeholder="School Number (Eg. 1589)" >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="mb-3 position-relative">
+              <label for="validationTooltipUsername">Candidate Number (Eg. 0001)</label>
+              <div class="input-group">
+                <input [(ngModel)]="candidate_number"   type="text" class="form-control" id="candidate_number"  placeholder="Candidate Number (Eg. 0001)">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="mb-3 position-relative">
+              <label for="validationTooltip03">Year completed (Eg. 2007)</label>
+              <input [(ngModel)]="year_completed" (keyup)="completeYearOnKeyUp($event)"  type="text" class="form-control" id="year_completed" placeholder="Year completed (Eg. 2007)">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <ng-container *ngIf="school_details; else  elseBlock">
+          <div class="col-md-12">
+            <h4 _ngcontent-pkl-c257="" class="card-title mt-0 olams-h4"><Strong *ngIf="school_details">School Name: {{school_details?.data?.center_name ?? 'School not found' }} [{{school_details?.data?.center_number}}]</Strong></h4>
+            <p  _ngcontent-pkl-c257="" class="card-text">Full Name: {{ searched_applicant?.data?.applicant?.first_name?? ""}} {{ searched_applicant?.data?.applicant?.last_name??""}}</p>
+                <!-- <a  _ngcontent-pkl-c257="" *ngIf="searched_applicant;" (click)="onConfirmCandidateInfo()" class="btn btn-primary">Confirm</a> -->
+            
+          </div>
+          </ng-container>
+
+          <ng-template #elseBlock>
+            <ng-container *ngIf="searched_applicant;">
+              <div  _ngcontent-pkl-c257="" class="col-lg-12">
+                  <div _ngcontent-pkl-c257="" class="card card-body text-center">
+                    <h4 _ngcontent-pkl-c257="" class="card-title mt-0">{{searched_applicant?.data?.center_name}} {{searched_applicant?.data?.school_infos?.center_number}}</h4>
+                    <p _ngcontent-pkl-c257=""  class="card-text">{{searched_applicant?.data?.applicant?.first_name}} {{searched_applicant?.data.applicant?.last_name}}</p>
+                    <a  _ngcontent-pkl-c257="" href="javascript: void(0);" class="btn btn-primary">Go somewhere</a>
+                  </div>
+              </div> 
+            </ng-container>
+          </ng-template>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button *ngIf="searched_applicant;" (click)="onConfirmCandidateInfo()" _ngcontent-jhm-c256="" type="button" class="btn btn-outline-primary"><i _ngcontent-jhm-c256="" class="bx bx-smile font-size-16 align-middle me-2"></i> Confirm</button>
+      </div>
+      <div>
+    </div>
+</div>
+</div>
+</div> 
+
+<div *ngIf="is_update_contact_info_time"  class="col-lg-12">
+  <div class="card">
+    <div class="card-body text-center">
+      <h4 class="card-title text-center">Kindly Select an applicant category and provide your contact information</h4>
+      
+      <p class="card-title-desc text-center">Tafadhali java taarifa za mawasiliano yako</p>
+      <form class="needs-validation" (ngSubmit)="contactFormSubmit()" [formGroup]="contact_form">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="mb-3 position-relative">
+              <label for="applicant_category">Applicant Category</label>
+              <select  #selectElement  class="form-select" id="applicant_category" formControlName="applicant_category" [ngClass]="{'is-invalid': formsubmit && formData.applicant_category.errors}">
+                <option selected disabled value="">Choose...</option>
+                <option  value="PGD">PGD</option>
+                <option  value="LUG">LUG</option>
+                <option  value="PGDL">PGDL</option>
+              </select>
+              <div *ngIf="formsubmit && formData.applicant_category.errors" class="invalid-tooltip">
+                <span *ngIf="formData.applicant_category.errors.required">Please choose a valide Candidate Type (S or P)</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="mb-3 position-relative">
+              <label for="validationTooltipPhonenumber">Phone Number	</label>
+              <div class="input-group">
+               
+                <input type="tel"  class="form-control" id="phone_number" formControlName="phone_number"
+                  placeholder="Enter your phone Number (eg: 0733311189)" 
+                  [ngClass]="{'is-invalid': formsubmit && formData.phone_number.errors}">
+  
+                <div *ngIf="formsubmit && formData.phone_number.errors" class="invalid-tooltip">
+                  <span *ngIf="formData.phone_number.errors.required">Provide a valide Phone Number (Eg: +25576)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="mb-3 position-relative">
+              <label for="validationTooltipEmail">Email</label>
+              <div class="input-group">
+                <input type="email" class="form-control" id="email" formControlName="email"
+                  placeholder="Enter your email address (Eg. example@gmail.com)" 
+                  [ngClass]="{'is-invalid': formsubmit && formData.email.errors}">
+                <div *ngIf="formsubmit && formData.email.errors" class="invalid-tooltip">
+                  <span *ngIf="formData.email.errors.required">Please provide a valid email (Eg. example@gmail.com).</span>
+                </div>
+              </div>
+            </div>
+          </div>
+         
+        </div>
+        <div class="row">
+          <div *ngIf="is_checking_status" class="col-md-12">
+            <div role="status" class="ms-2 spinner-border text-info"><span class="visually-hidden">Loading...</span></div>
+          </div>
+          <div *ngIf="applicant_payment_status_model?.data?.control_number else elseBlock" class="col-md-12">
+            <div><div class="alert-success alert alert-success fade show" role="alert">
+              <h4 class="alert-heading ">{{applicant_payment_status_model?.data?.control_number}}</h4>
+              <p> {{applicant_payment_status_model?.message}}.</p>
+              <hr>
+            </div>
+          </div>
+          
+          </div>
+          <ng-template  #elseBlock >
+            <div *ngIf="applicant_payment_status_model?.data" class="col-md-12">
+            <div class="alert-dismissible fade show alert alert-danger alert-dismissible fade show" role="alert">
+              <button type="button" class="btn-close" aria-label="Close"></button>
+              <i class="mdi mdi-block-helper me-2"></i> {{applicant_payment_status_model?.message}}!
+            </div>
+            </div>
+          </ng-template>
+        </div>
+       
+        <div class="d-flex justify-content-end">
+          <ng-container *ngIf="control_number_generated == true" >
+            <button  _ngcontent-jhm-c256="" type="submit" class="btn btn-outline-danger disabled"><i _ngcontent-jhm-c256="" class="bx bx-smile font-size-16 align-middle me-2"></i> pay to continue </button>
+           
+          </ng-container>
+           <button *ngIf="control_number_generated == false" _ngcontent-jhm-c256="" type="submit" class="btn btn-outline-primary"><i _ngcontent-jhm-c256="" class="bx bx-smile font-size-16 align-middle me-2"></i> submit </button>
+        </div>
+      <div>
+    </div>
+  </form>
+    </div>
+  </div>
+</div>
+
+   
+
+
+
+
+

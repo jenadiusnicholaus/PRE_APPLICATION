@@ -7,13 +7,17 @@ import { UIModule } from '../../shared/ui/ui.module';
 import { WidgetModule } from '../../shared/widget/widget.module';
 
 import { NgApexchartsModule } from 'ng-apexcharts';
-import { NgbDropdownModule, NgbTooltipModule, NgbNavModule, NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap'
+import { NgbDropdownModule, NgbTooltipModule, NgbNavModule, NgbCarouselModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap'
 import { SimplebarAngularModule } from 'simplebar-angular';
 
 import { DefaultComponent } from './default/default.component';
+import { ApplyForLoanComponent } from './apply-for-loan/apply-for-loan.component';
+import { NectaApplicantComponent } from './necta-applicant/necta-applicant.component';
+import { NoneNectaApplicantComponent } from './none-necta-applicant/none-necta-applicant.component';
+import { NectaContactInfosComponent } from './necta-contact-infos/necta-contact-infos.component';
 
 @NgModule({
-  declarations: [DefaultComponent],
+  declarations: [DefaultComponent, ApplyForLoanComponent, NectaApplicantComponent, NoneNectaApplicantComponent, NectaContactInfosComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -26,7 +30,9 @@ import { DefaultComponent } from './default/default.component';
     NgbCarouselModule,
     WidgetModule,
     NgApexchartsModule,
-    SimplebarAngularModule
+    SimplebarAngularModule,
+    NgbAlertModule
+
   ]
 })
 export class DashboardsModule { }

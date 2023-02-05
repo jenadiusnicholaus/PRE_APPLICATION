@@ -5,7 +5,6 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { LayoutComponent } from './layouts/layout.component';
 
 const routes: Routes = [
-  { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
   // tslint:disable-next-line: max-line-length
   { path: '', component: LayoutComponent, loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule), canActivate: [AuthGuard] },
 ];

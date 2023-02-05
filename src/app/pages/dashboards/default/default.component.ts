@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { emailSentBarChart, monthlyEarningChart } from './data';
 import { ChartType } from './dashboard.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EventService } from '../../../core/services/event.service';

@@ -9,6 +9,7 @@ export class PagetitleComponent implements OnInit {
 
   @Input() breadcrumbItems;
   @Input() title: string;
+  @Input() _class: string
 
   constructor() { }
 
