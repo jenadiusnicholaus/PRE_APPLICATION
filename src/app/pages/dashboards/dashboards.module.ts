@@ -15,9 +15,10 @@ import { ApplyForLoanComponent } from './apply-for-loan/apply-for-loan.component
 import { NectaApplicantComponent } from './necta-applicant/necta-applicant.component';
 import { NoneNectaApplicantComponent } from './none-necta-applicant/none-necta-applicant.component';
 import { NectaContactInfosComponent } from './necta-contact-infos/necta-contact-infos.component';
+import { NectaSelfRegistrationComponent } from './necta-self-registration/necta-self-registration.component';
 
 @NgModule({
-  declarations: [DefaultComponent, ApplyForLoanComponent, NectaApplicantComponent, NoneNectaApplicantComponent, NectaContactInfosComponent],
+  declarations: [DefaultComponent, ApplyForLoanComponent, NectaApplicantComponent, NoneNectaApplicantComponent, NectaContactInfosComponent, NectaSelfRegistrationComponent],
   imports: [
     CommonModule,
     FormsModule,

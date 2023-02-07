@@ -5,6 +5,7 @@ import { ApplyForLoanComponent } from './apply-for-loan/apply-for-loan.component
 import { DefaultComponent } from './default/default.component';
 import { NectaApplicantComponent } from './necta-applicant/necta-applicant.component';
 import { NectaContactInfosComponent } from './necta-contact-infos/necta-contact-infos.component';
+import { NectaSelfRegistrationComponent } from './necta-self-registration/necta-self-registration.component';
 import { NoneNectaApplicantComponent } from './none-necta-applicant/none-necta-applicant.component';
 
 const routes: Routes = [
@@ -29,9 +30,14 @@ const routes: Routes = [
     },
 
     {
-        path: 'applicant-contact-infos',
+        path: 'necta-applicant-contact-infos',
         component: NectaContactInfosComponent
-    }
+    },
+
+    {
+        path: 'necta-registration',
+        component: NectaSelfRegistrationComponent
+    },
 ];
 
 @NgModule({

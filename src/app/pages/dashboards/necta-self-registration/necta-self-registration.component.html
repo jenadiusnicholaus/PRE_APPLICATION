@@ -1,0 +1,194 @@
+<div [@slideInOutAnimation]="" class="col-lg-12">
+    <div class="card">
+      <div class="card-body text-center">
+        <h4 class="card-title olams-h4">{{searched_applicant?.data?.school_infos[0].center_name}}</h4>
+        <p class="card-title-desc" style="color:red">{{searched_applicant?.data?.school_infos[0].necta_applicants[0].first_name}} {{searched_applicant?.data?.school_infos[0].necta_applicants[0].last_name}}</p>
+        <form class="needs-validation" (ngSubmit)="formSubmit()" [formGroup]="registration_form">
+          <div class="row">
+            <div class="form-field-header" >
+                <h6 class="card-title-desc">Form 4 index</h6>
+            </div>
+         
+            <div class="row">
+
+                <div class="col-md-3">
+                  <label for="candidate_type">Candidate Type </label>
+                  <select class="form-select" formArrayName="candidate_type">
+                    <option value="0" selected="">{{searched_applicant?.data?.school_infos[0].center_number[0]}}</option>
+                  </select>
+                </div>
+      
+                <div class="col-md-3">
+                  <div class="mb-3 position-relative">
+                    <label for="validationTooltipUsername">School Number</label>
+                    <div class="input-group">
+                      <input type="text" formControlName = "school_number" value="{{searched_applicant?.data?.school_infos[0]?.center_number?.substring(1)}}"  class="form-control" id="school_number" placeholder="School Number (Eg. 1589)" >
+                    </div>
+                    <div *ngIf="formsubmit && formData.school_number.errors" class="invalid-tooltip">
+                        <span *ngIf="formData?.school_number?.errors.required"></span>
+                    </div>
+                  </div>
+                </div>
+      
+                <div class="col-md-3">
+                  <div class="mb-3 position-relative">
+                    <label for="validationTooltipUsername">Candidate Number</label>
+                    <input type="text" class="form-control" id="candidate_number" placeholder="Enter your condidate (eg: 0092)"
+                      formControlName="candidate_number" value="{{searched_applicant?.data?.necta_index_no.substr(-4)}}" [ngClass]="{'is-invalid': formsubmit && formData.candidate_number.errors}">
+                    <div *ngIf="formsubmit && formData.candidate_number.errors" class="invalid-tooltip">
+                      <span *ngIf="formData.candidate_number.errors.required">Please provide a valid Candidate no address.</span>
+                    </div>
+                  </div>
+                </div>
+
+      
+                <div class="col-md-3 position-relative">
+                  <label for="year_completed" class="form-label">Year completed </label>
+                  <div class="input-group has-validation">
+                    <input type="text" formControlName="year_completed" class="form-control" value="{{searched_applicant?.data?.school_infos[0]?.necta_applicants[0]?.exam_year}}"  id="year_completed" aria-describedby="validationTooltipUsernamePrepend" required>
+                  </div>
+                  <div *ngIf="formsubmit && formData.year_completed.errors" class="invalid-tooltip">
+                    <span *ngIf="formData.year_completed.errors.required"></span>
+                </div>
+                </div>
+
+              </div>
+          </div>
+
+          <div class="row">
+            <div class="form-field-header" >
+                <h6 class="card-title-desc">Applicant Category </h6>
+            </div>
+         
+            <div class="col-md-6">
+              <label for="password2">Applicant Category</label>
+
+              <select class="form-select" formArrayName="applicant_category">
+                <option value="0" selected="">{{searched_applicant?.data?.payment_details[0].applicant.application_category.name}}</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <div class="mb-3 position-relative">
+                <label for="password2">Transaction Reference id</label>
+
+                <input type="text" class="form-control" id="transaction_id" placeholder="Your Transaction id"
+                  formControlName="transaction_id" value="{{searched_applicant?.data?.payment_details[0]?.reference}}" [ngClass]="{'is-invalid': formsubmit && formData.transaction_id.errors}">
+                <div *ngIf="formsubmit && formData.transaction_id.errors" class="invalid-tooltip">
+                  <span *ngIf="formData.transaction_id.errors.required">Please provide a valid transaction_referece address.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-field-header" >
+                <h6 class="card-title-desc">Set a six Character passsword</h6>
+            </div>
+
+            <div class="col-md-6">
+                <div class="mb-3 position-relative">
+                  <label for="password2">Password</label>
+                  <input type="text" class="form-control" id="password" placeholder="Enter your password"
+                    formControlName="password" [ngClass]="{'is-invalid': formsubmit && formData.password.errors}">
+                  <div *ngIf="formsubmit && formData.password.errors" class="invalid-tooltip">
+                    <span *ngIf="formData.password.errors.required">Password is required and must be 6 character length.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="mb-3 position-relative">
+                  <label for="password2">Confirm password</label>
+                  <input type="text" class="form-control" id="password2" placeholder="Confirm you password"
+                    formControlName="password2" [ngClass]="{'is-invalid': formsubmit && formData.password2.errors}">
+                  <div *ngIf="formsubmit && formData.password2.errors" class="invalid-tooltip">
+                    <span *ngIf="formData.password2.errors.required">Password is required and must be 6 character length.</span>
+                  </div>
+                </div>
+              </div>
+
+            <div class="form-field-header" >
+                <h6 class="card-title-desc">Set your secret Question and answer for resetting your passwor(Weka Swali na jib kwa ajili ya kubali neno la Siri)</h6>
+            </div>
+
+            <div class="col-md-6">
+                <div class="mb-3 position-relative">
+                  <select  class="form-select"  formControlName="question" id="question" >
+                    <option selected disabled value="" >Choose your Question</option>
+                    <option  *ngFor="let option of question" [value]="option.value">{{ option.label }}</option>
+                  </select>
+                  <div *ngIf="formsubmit && formData.question.errors" class="invalid-tooltip">
+                      <span *ngIf="formData.question.errors.required"></span>
+                  </div>
+                </div>
+              </div>
+
+            <div class="col-md-6">
+                <div class="mb-3 position-relative">
+                  <input type="text" class="form-control" id="answer" placeholder="answer"
+                    formControlName="answer" [ngClass]="{'is-invalid': formsubmit && formData.answer.errors}">
+                  <div *ngIf="formsubmit && formData.answer.errors" class="invalid-tooltip">
+                    <span *ngIf="formData.answer.errors.required">Please provide a valid answer.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-field-header" >
+                <h6 class="card-title-desc">Update your contact information if there not mutching below ones</h6>
+            </div>
+
+            <div class="col-md-6">
+                <div class="mb-3 position-relative">
+                  <input type="text" value="{{searched_applicant?.data?.payment_details[0].applicant.applicant_details.phonenumber}}" class="form-control" id="phone_number" placeholder="Enter your Phone number"
+                    formControlName="phone_number" [ngClass]="{'is-invalid': formsubmit && formData.phone_number.errors}">
+                  <div *ngIf="formsubmit && formData.phone_number.errors" class="invalid-tooltip">
+                    <span *ngIf="formData.phone_number.errors.required">Please provide a valid Phone number.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="mb-3 position-relative">
+                  <div class="input-group">
+                    <input value="{{searched_applicant?.data?.payment_details[0].applicant.applicant_details.email}}" type="email" class="form-control" id="email" formControlName="email"
+                      placeholder="Enter your email address (Eg. example@gmail.com)" 
+                      [ngClass]="{'is-invalid': formsubmit && formData.email.errors}">
+                    <div *ngIf="formsubmit && formData.email.errors" class="invalid-tooltip">
+                      <span *ngIf="formData.email.errors.required">Please provide a valid email (Eg. example@gmail.com).</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+             
+          </div>
+          <div>
+            <div *ngIf="formsubmitting"  class="col-md-12">
+              <div style="width: 8px; height: 8px;" role="status" class="ms-2 spinner-border text-info"><span class="visually-hidden">Loading...</span></div>
+            </div>
+           
+            <div *ngIf="registration_model"  class="col-md-12 ">
+            <strong class="olams-h4"> Username: {{ registration_model.data.payment_details.applicant.applicant_details.applicant_type.necta.index_no}}</strong> 
+            <br> 
+             <strong style="color:rgb(239, 137, 12)">Note: Remeber to Keep you password safe for future use:</strong> 
+            </div>
+
+            <!-- from message and butn submition -->
+            <ng-template *ngIf="registration_model then disableButn else ShowButton" >
+
+            </ng-template>
+
+            <ng-template #disableButn>
+              <button class="btn btn-outline-primary" disabled type="submit">Submit form</button>
+
+            </ng-template>
+
+            <ng-template #ShowButton>
+              <button class="btn btn-outline-primary" type="submit">Submit form</button>
+
+            </ng-template>
+           
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- end card -->
+  </div> <!-- end col -->
