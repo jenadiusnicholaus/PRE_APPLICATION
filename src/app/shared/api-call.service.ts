@@ -1,10 +1,13 @@
 import { HttpClient,HttpHeaders  } from '@angular/common/http';
-import { importProvidersFrom, Injectable } from '@angular/core';
+import { TypeModifier } from '@angular/compiler';
+import { importProvidersFrom, Injectable, Type } from '@angular/core';
 import { Observable } from 'rxjs';
+import { MakeRequestService } from './make-request.service';
 import { ApplicantExistenceInterface } from './models/applicant-existence-model';
 import { ApplicantType } from './models/applicant-type';
 import { ApplicantContactInterface } from './models/contact-info-model';
 import { ApplicantPaymentStatusInterface } from './models/payment-status-model';
+import { SelfRegistrationInterface } from './models/registration-response-model';
 import { SchoolInterface } from './models/school-model';
 import {SearchedApplicantInterface} from './models/searched-applicant-model';
 
@@ -18,78 +21,68 @@ export class ApiCallService {
   EDUCATION_BASE_URL ='http://127.0.0.1:8000/api/education-info/'
  
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, public makerequestService: MakeRequestService) { }
+
 
   getApplicantType(applicantType:String): Observable<ApplicantType>{
-    let body = {"applicant_type": applicantType}
-    console.log(body)
-    const headers = new HttpHeaders({
-     'Content-Type': 'application/json',
-   });
-   
-     let response = this.http.post<ApplicantType>(`${this.APPLICATION_BASE_URL}applicant-type/`,body,{headers});
-     return response
-    }
+        let body = {"applicant_type": applicantType}
+        let headers = this.makerequestService.getHeaders({'Content-Type': 'application/json',})
+        let url = `${this.APPLICATION_BASE_URL}applicant-type/`
+        let response = this.makerequestService.post<ApplicantType>(headers, url, body )
+        return response
+        }
 
 
   checkSchool(center_number:String): Observable<SchoolInterface>{
-      let body = {
-        "center_number":center_number
-    }
-      console.log(body)
-      const headers = new HttpHeaders({
-       'Content-Type': 'application/json',
-     });
-     
-       let response = this.http.post<SchoolInterface>(`${this.EDUCATION_BASE_URL}check-school-existance/`, body,{headers});
-       return response
+        let body = {"center_number":center_number}
+        let headers = this.makerequestService.getHeaders({'Content-Type': 'application/json',})
+        let url =  `${this.EDUCATION_BASE_URL}check-school-existance/`
+        let response = this.makerequestService.post<SchoolInterface>(headers, url, body,);
+        return response
       }
 
 
   searchApplicant(body:any): Observable<SearchedApplicantInterface>{
   
-    console.log(body)
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-    
-      let response = this.http.post<SearchedApplicantInterface>(`${this.APPLICATION_BASE_URL}search-applicant/`, body,{headers});
+
+      let headers = this.makerequestService.getHeaders({'Content-Type': 'application/json',})
+      let url = `${this.APPLICATION_BASE_URL}search-applicant/`
+      let response = this.makerequestService.post<SearchedApplicantInterface>(headers,url, body);
       return response
-    }
+      }
 
   applicantExistenceInApplicationTable(body:any): Observable<ApplicantExistenceInterface>{
   
-      console.log(body)
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-      });
-      
-        let response = this.http.post<ApplicantExistenceInterface>(`${this.APPLICATION_BASE_URL}applicant-existance/`, body,{headers});
+        let headers = this.makerequestService.getHeaders({'Content-Type': 'application/json',})
+        let url = `${this.APPLICATION_BASE_URL}applicant-existance/`
+        let response = this.makerequestService.post<ApplicantExistenceInterface>(headers,body, url);
         return response
       }
 
+
   saveContactInfos(body:any): Observable<ApplicantContactInterface>{
   
-        console.log(body)
-        const headers = new HttpHeaders({
-          'Content-Type': 'application/json',
-        });
-        
-          let response = this.http.post<ApplicantContactInterface>(`${this.APPLICATION_BASE_URL}pre-applicant-necta-contact-infos/`, body,{headers});
+          let headers = this.makerequestService.getHeaders({'Content-Type': 'application/json',})
+          let url = `${this.APPLICATION_BASE_URL}pre-applicant-necta-contact-infos/`
+          let response = this.makerequestService.post<ApplicantContactInterface>(headers, url, body);
           return response
         }
 
   checkApplicantPaymentStatusOnCategoryChanges(body:any): Observable<ApplicantPaymentStatusInterface>{
-  
-        console.log(body)
-        const headers = new HttpHeaders({
-          'Content-Type': 'application/json',
-        });
-        
-          let response = this.http.post<ApplicantPaymentStatusInterface>(`${this.APPLICATION_BASE_URL}choose-apploicant-category/`, body,{headers});
+
+          let headers = this.makerequestService.getHeaders({'Content-Type': 'application/json',})
+          let url = `${this.APPLICATION_BASE_URL}choose-apploicant-category/`
+          let response = this.makerequestService.post<ApplicantPaymentStatusInterface>(headers, url, body,);
           return response
         }
-
+        
+  selfRegistration(body:any): Observable<SelfRegistrationInterface>{
+            let headers = this.makerequestService.getHeaders({'Content-Type': 'application/json',})
+           let url = `${this.APPLICATION_BASE_URL}registration/`
+            let response = this.makerequestService.post<SelfRegistrationInterface>(headers, url, body);
+            return response
+          }
+  
   
 
 }
