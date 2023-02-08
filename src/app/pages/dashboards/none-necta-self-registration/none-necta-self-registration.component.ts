@@ -1,20 +1,17 @@
 import { Component, OnInit,HostBinding } from '@angular/core';
 import { UntypedFormBuilder, Validators, UntypedFormGroup, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { slideInOutAnimation } from 'src/app/shared/animations';
 import { ApiCallService } from 'src/app/shared/necta-api-call.service';
 import { SelfRegistrationInterface } from 'src/app/shared/models/necta-models/registration-response-model';
 import { SearchedApplicantInterface } from 'src/app/shared/models/necta-models/searched-applicant-model';
-import { MustMatch } from 'src/app/shared/validation.mustmuch';
 
 
 @Component({
-  selector: 'app-necta-self-registration',
-  templateUrl: './necta-self-registration.component.html',
-  styleUrls: ['./necta-self-registration.component.scss'],
-  animations: [ slideInOutAnimation ]
+  selector: 'app-none-necta-self-registration',
+  templateUrl: './none-necta-self-registration.component.html',
+  styleUrls: ['./none-necta-self-registration.component.scss']
 })
-export class NectaSelfRegistrationComponent implements OnInit {
+export class NoneNectaSelfRegistrationComponent implements OnInit {
 //  forms 
 registration_form: UntypedFormGroup; // bootstrap validation form
 constructor(private formBuilder: UntypedFormBuilder, private route: ActivatedRoute, private api_call_service:ApiCallService) { }
@@ -71,8 +68,6 @@ ngOnInit(): void {
       this.candidate_no = params['candidate_no']
    
       this.api_call_service.searchApplicant(params).subscribe((data) => {
-      
-       
         this.searched_applicant = data
       })
     });
@@ -103,7 +98,7 @@ ngOnInit(): void {
         "secret_question": this.registration_form.value['question'],
         "secret_answer":this.registration_form.value['answer'],
         "password": this.registration_form.value['password'],
-        "applicant_type": "necta",
+        "applicant_type": "none-necta",
         "transaction_id": this.searched_applicant.data.payment_details[0].reference,
         "applicant_category": this.searched_applicant.data.payment_details[0].applicant.application_category.name
     }
@@ -121,6 +116,7 @@ ngOnInit(): void {
    
 
   
+
 
 
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiCallService } from 'src/app/shared/api-call.service';
-import { ApplicantType } from 'src/app/shared/models/applicant-type';
+import { ApiCallService } from 'src/app/shared/necta-api-call.service';
+import { ApplicantType } from 'src/app/shared/models/necta-models/applicant-type';
 
 @Component({
   selector: 'app-apply-for-loan',

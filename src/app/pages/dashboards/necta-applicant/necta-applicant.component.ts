@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
-import { ApiCallService } from 'src/app/shared/api-call.service';
-import { SchoolInterface } from 'src/app/shared/models/school-model';
-import { SearchedApplicantInterface } from 'src/app/shared/models/searched-applicant-model';
-import { ApplicantExistenceInterface } from 'src/app/shared/models/applicant-existence-model';
-import { ChangeEvent } from 'preact/compat';
-import { ApplicantPaymentStatusInterface } from 'src/app/shared/models/payment-status-model';
-import { ApplicantContactInterface } from 'src/app/shared/models/contact-info-model';
-import { flatMap } from 'rxjs/operators';
+import { ApiCallService } from 'src/app/shared/necta-api-call.service';
+import { SchoolInterface } from 'src/app/shared/models/necta-models/school-model';
+import { SearchedApplicantInterface } from 'src/app/shared/models/necta-models/searched-applicant-model';
+import { ApplicantExistenceInterface } from 'src/app/shared/models/necta-models/applicant-existence-model';
+import { ApplicantPaymentStatusInterface } from 'src/app/shared/models/necta-models/payment-status-model';
+import { ApplicantContactInterface } from 'src/app/shared/models/necta-models/contact-info-model';
 
 @Component({
   selector: 'app-necta-applicant',

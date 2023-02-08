@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ApiCallService } from './api-call.service';
+import { ApiCallService } from './necta-api-call.service';
 
 describe('ApiCallService', () => {
   let service: ApiCallService;

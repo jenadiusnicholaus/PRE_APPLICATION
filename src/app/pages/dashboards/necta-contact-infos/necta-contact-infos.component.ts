@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApplicantExistenceInterface } from 'src/app/shared/models/applicant-existence-model';
+import { ApplicantExistenceInterface } from 'src/app/shared/models/necta-models/applicant-existence-model';
 
 @Component({
   selector: 'app-necta-contact-infos',

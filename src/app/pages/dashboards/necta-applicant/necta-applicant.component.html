@@ -3,10 +3,10 @@
   <div class="card">
     <div class="card-body text-center">
       <h4 class="card-title text-center olams-h4">Enter your index number you intended to use  for admission (TCU)</h4>
+      <p class="card-title-desc text-center">Jaza namba yako ya kidato che Nne utakayotumia kuomba chuo</p>
       <ngb-alert *ngIf="optionNotSeclectError" type="warning">
         {{optionNotSeclectError}}
       </ngb-alert>
-      <p class="card-title-desc text-center">Jaza namba yako ya kidato che Nne utakayotumia kuomba chuo</p>
       <div class="row">
         <div class="d-flex justify-content-end">
           <span (click)="centerNumberonKeyUp()" class="input-group-text" id="validationTooltipUsernamePrepend">
@@ -110,7 +110,7 @@
             <h4 class="alert-heading ">{{searched_applicant.data.payment_details[0].control_number}}</h4>
             <p>You have to make payments for the given control in order to continue with next step</p>
             <hr>
-          </div>Registration
+          </div>
         </ng-template>
         </ng-template>
 

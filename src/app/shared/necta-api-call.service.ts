@@ -3,13 +3,14 @@ import { TypeModifier } from '@angular/compiler';
 import { importProvidersFrom, Injectable, Type } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MakeRequestService } from './make-request.service';
-import { ApplicantExistenceInterface } from './models/applicant-existence-model';
-import { ApplicantType } from './models/applicant-type';
-import { ApplicantContactInterface } from './models/contact-info-model';
-import { ApplicantPaymentStatusInterface } from './models/payment-status-model';
-import { SelfRegistrationInterface } from './models/registration-response-model';
-import { SchoolInterface } from './models/school-model';
-import {SearchedApplicantInterface} from './models/searched-applicant-model';
+import { ApplicantExistenceInterface } from './models/necta-models/applicant-existence-model';
+import { ApplicantType } from './models/necta-models/applicant-type';
+import { ApplicantContactInterface } from './models/necta-models/contact-info-model';
+import { ApplicantPaymentStatusInterface } from './models/necta-models/payment-status-model';
+import { SelfRegistrationInterface } from './models/necta-models/registration-response-model';
+import { SchoolInterface } from './models/necta-models/school-model';
+import {SearchedApplicantInterface} from './models/necta-models/searched-applicant-model';
+import { Constants } from './utils';
 
 
 @Injectable({
@@ -17,12 +18,13 @@ import {SearchedApplicantInterface} from './models/searched-applicant-model';
 })
 export class ApiCallService {
 
-  APPLICATION_BASE_URL = 'http://127.0.0.1:8000/api/application/'
-  EDUCATION_BASE_URL ='http://127.0.0.1:8000/api/education-info/'
+  APPLICATION_BASE_URL = Constants.APPLICATION_BASE_URL
+  EDUCATION_BASE_URL = Constants.EDUCATION_BASE_URL
  
 
   constructor(private http: HttpClient, public makerequestService: MakeRequestService) { }
 
+// necta requests
 
   getApplicantType(applicantType:String): Observable<ApplicantType>{
         let body = {"applicant_type": applicantType}
@@ -43,8 +45,6 @@ export class ApiCallService {
 
 
   searchApplicant(body:any): Observable<SearchedApplicantInterface>{
-  
-
       let headers = this.makerequestService.getHeaders({'Content-Type': 'application/json',})
       let url = `${this.APPLICATION_BASE_URL}search-applicant/`
       let response = this.makerequestService.post<SearchedApplicantInterface>(headers,url, body);
@@ -55,7 +55,7 @@ export class ApiCallService {
   
         let headers = this.makerequestService.getHeaders({'Content-Type': 'application/json',})
         let url = `${this.APPLICATION_BASE_URL}applicant-existance/`
-        let response = this.makerequestService.post<ApplicantExistenceInterface>(headers,body, url);
+        let response = this.makerequestService.post<ApplicantExistenceInterface>(headers, url, body,);
         return response
       }
 
@@ -78,11 +78,20 @@ export class ApiCallService {
         
   selfRegistration(body:any): Observable<SelfRegistrationInterface>{
             let headers = this.makerequestService.getHeaders({'Content-Type': 'application/json',})
-           let url = `${this.APPLICATION_BASE_URL}registration/`
+            let url = `${this.APPLICATION_BASE_URL}registration/`
             let response = this.makerequestService.post<SelfRegistrationInterface>(headers, url, body);
             return response
           }
+
+
   
-  
+  // none necta requests
+
+
+  searchNoneNecta(){
+    let headers = this.makerequestService.getHeaders({'Content-Type': 'application/json',})
+    let url = `${this.APPLICATION_BASE_URL}registration/`
+
+  }
 
 }
