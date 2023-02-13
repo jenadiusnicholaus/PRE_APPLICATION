@@ -55,7 +55,7 @@
       <ng-template #ShowMessageToPay>
 
         <div  class="alert-danger alert alert-danger fade show fade-up text-center" role="alert">
-          <h4 class="alert-heading ">{{searched_applicant.data.payment_details[0].control_number}}</h4>
+          <h4 class="alert-heading ">{{searched_applicant.data.payment_details.control_number}}</h4>
           <p>You have to make payments for the given control in order to continue with next step</p>
           <hr>
         </div>
@@ -208,7 +208,7 @@
                       </div>
                       <div *ngIf="applicant_payment_status_model?.data?.control_number else elseBlock" class="col-md-12">
                         <div>
-                          <div class="alert-success alert alert-success fade show" role="alert">
+                          <div class="alert-success alert alert-success fade show text-center" role="alert">
                           <h4 class="alert-heading">{{applicant_payment_status_model?.data?.control_number}}</h4>
                           <p>{{applicant_payment_status_model?.message}}.</p>
                           <hr>
@@ -217,7 +217,7 @@
                       
                       </div>
                       <ng-template  #elseBlock >
-                        <div *ngIf="applicant_payment_status_model?.data" class="col-md-12">
+                        <div *ngIf="applicant_payment_status_model?.data text-center" class="col-md-12">
                         <div class="alert-dismissible fade show alert alert-danger alert-dismissible fade show" role="alert">
                           <button type="button" class="btn-close" aria-label="Close"></button>
                           <i class="mdi mdi-block-helper me-2"></i> {{applicant_payment_status_model?.message}}!
@@ -230,7 +230,15 @@
                         <button  _ngcontent-jhm-c256="" type="submit" class="btn btn-outline-danger disabled"><i _ngcontent-jhm-c256="" class="bx bx-smile font-size-16 align-middle me-2"></i> pay to continue </button>
                        
                       </ng-container>
-                       <button *ngIf="control_number_generated == false" _ngcontent-jhm-c256="" type="submit" class="btn btn-outline-primary"><i _ngcontent-jhm-c256="" class="bx bx-smile font-size-16 align-middle me-2"></i> submit </button>
+                      <ng-template *ngIf="applicant_payment_status_model?.message =='something went wrong!' then ShowTryBtn else ShowSubmitBtn">
+
+                      </ng-template>
+                      <ng-template #ShowTryBtn>
+                        <button *ngIf="control_number_generated == false" _ngcontent-jhm-c256="" type="submit" class="btn btn-outline-primary"><i _ngcontent-jhm-c256="" class="bx bx-smile font-size-16 align-middle me-2"></i> try again </button>
+                      </ng-template>
+                      <ng-template #ShowSubmitBtn>
+                        <button *ngIf="control_number_generated == false" _ngcontent-jhm-c256="" type="submit" class="btn btn-outline-primary"><i _ngcontent-jhm-c256="" class="bx bx-smile font-size-16 align-middle me-2"></i> submit </button>
+                      </ng-template>
                     </div>
                   </div>
                 </form>

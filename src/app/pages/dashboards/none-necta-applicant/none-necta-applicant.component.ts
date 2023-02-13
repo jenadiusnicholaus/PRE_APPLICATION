@@ -85,10 +85,10 @@ export class NoneNectaApplicantComponent implements OnInit {
       this.searched_applicant = data
       // this.loading_contact_form= true
       console.log(data)
-      if(this.searched_applicant.data.payment_details.length !==0 &&  this.searched_applicant.data.payment_details[0].control_number!== null){
+      if(this.searched_applicant.data.payment_details &&  this.searched_applicant.data.payment_details.control_number!== null){
         this.payments_found = true
 
-        if( data?.data.payment_details[0].payment_status === 0)   {
+        if( data?.data.payment_details.payment_status === 0)   {
           this.control_no_exists_and_paid = false
         }
         else{
@@ -175,9 +175,9 @@ export class NoneNectaApplicantComponent implements OnInit {
  gotoSelfRegistration(){
   let params = {
 
-    "index_no": this.contact_infos_model?.data?.applicant_details.applicant_type.none_necta.original_no,
+    "index_no": `${this.searched_applicant?.data?.applicant.original_no}`,
     "app_year": '',
-    "exam_year": this.contact_infos_model?.data?.applicant_details.applicant_type.none_necta.exam_year,
+    "exam_year": `${this.searched_applicant?.data?.applicant.exam_year}`,
     "applicant_type": "none_necta",
   
 

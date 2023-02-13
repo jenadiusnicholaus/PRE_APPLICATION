@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { MakeRequestService } from './make-request.service';
 import { ApplicantPaymentStatusInterface } from './models/necta-models/payment-status-model';
 import { NoneNecta } from './none-necta-models/search-applicant';
+import { NoneNectaSelfRegistration } from './none-necta-models/self-registration-model';
 import { NoneNactaContactInfos } from './none-necta-models/updated-contact-model';
 import { Constants } from './utils';
 
@@ -44,4 +45,12 @@ export class NoneNectaApiCallService {
     return response
 
   }
+
+  selfRegistration(body:any) {
+    let headers = this.makeRequestService.getHeaders({'Content-Type': 'application/json',})
+    let url = `${this.APPLICATION_BASE_URL}registration/`
+    let response = this.makeRequestService.post<NoneNectaSelfRegistration.SelfRegistrationInterface>(headers, url, body);
+    return response
+  }
+
 }

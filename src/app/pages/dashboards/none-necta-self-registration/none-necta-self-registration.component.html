@@ -1,58 +1,29 @@
 <div [@slideInOutAnimation]="" class="col-lg-12">
     <div class="card">
       <div class="card-body text-center">
-        <h4 class="card-title olams-h4">{{searched_applicant?.data?.school_infos[0].center_name}}</h4>
-        <p class="card-title-desc" style="color:red">{{searched_applicant?.data?.school_infos[0].necta_applicants[0].first_name}} {{searched_applicant?.data?.school_infos[0].necta_applicants[0].last_name}}</p>
+        <h4 _ngcontent-pkl-c257="" class="card-title mt-0 olams-h4">
+          <Strong *ngIf="searched_applicant?.data?.applicant?.first_name" >Form four Exam sit (Mtihani wa kidato cha nne ): Oversee(Nje ya Nchi)</Strong></h4>
+          <p *ngIf="searched_applicant?.data?.applicant?.first_name" _ngcontent-pkl-c257="" style="color: red" class="card-text">Full Name: {{ searched_applicant?.data?.applicant?.first_name?? ""}} {{ searched_applicant?.data?.applicant?.last_name??""}}</p>
+   
         <form class="needs-validation" (ngSubmit)="formSubmit()" [formGroup]="registration_form">
           <div class="row">
             <div class="form-field-header" >
                 <h6 class="card-title-desc">Form 4 index</h6>
             </div>
-         
-            <div class="row">
-
-                <div class="col-md-3">
-                  <label for="candidate_type">Candidate Type </label>
-                  <select class="form-select" formArrayName="candidate_type">
-                    <option value="0" selected="">{{searched_applicant?.data?.school_infos[0].center_number[0]}}</option>
-                  </select>
-                </div>
-      
-                <div class="col-md-3">
+                <div class="col-md-6">
                   <div class="mb-3 position-relative">
-                    <label for="validationTooltipUsername">School Number</label>
-                    <div class="input-group">
-                      <input type="text" formControlName = "school_number" value="{{searched_applicant?.data?.school_infos[0]?.center_number?.substring(1)}}"  class="form-control" id="school_number" placeholder="School Number (Eg. 1589)" >
-                    </div>
-                    <div *ngIf="formsubmit && formData.school_number.errors" class="invalid-tooltip">
-                        <span *ngIf="formData?.school_number?.errors.required"></span>
-                    </div>
+                    <label for="validationTooltip03">Form Four Index Number</label>
+                    <input value="{{searched_applicant?.data?.payment_details[0].applicant.applicant_details.applicant_type.none_necta.index_no}}" formControlName="index_no" type="text" class="form-control" id="validationTooltip03" placeholder="Enter you form four index number">
                   </div>
                 </div>
       
-                <div class="col-md-3">
+                <div class="col-md-6">
                   <div class="mb-3 position-relative">
-                    <label for="validationTooltipUsername">Candidate Number</label>
-                    <input type="text" class="form-control" id="candidate_number" placeholder="Enter your condidate (eg: 0092)"
-                      formControlName="candidate_number" value="{{searched_applicant?.data?.necta_index_no.substr(-4)}}" [ngClass]="{'is-invalid': formsubmit && formData.candidate_number.errors}">
-                    <div *ngIf="formsubmit && formData.candidate_number.errors" class="invalid-tooltip">
-                      <span *ngIf="formData.candidate_number.errors.required">Please provide a valid Candidate no address.</span>
-                    </div>
+                    <label for="validationTooltip04">Completion Year</label>
+                    <input value="{{searched_applicant?.data?.payment_details[0].applicant.applicant_details.applicant_type.none_necta.exam_year}}" formControlName="year_completed" type="text" class="form-control" id="validationTooltip04" placeholder="Enter your completion year">
                   </div>
-                </div>
-
-      
-                <div class="col-md-3 position-relative">
-                  <label for="year_completed" class="form-label">Year completed </label>
-                  <div class="input-group has-validation">
-                    <input type="text" formControlName="year_completed" class="form-control" value="{{searched_applicant?.data?.school_infos[0]?.necta_applicants[0]?.exam_year}}"  id="year_completed" aria-describedby="validationTooltipUsernamePrepend" required>
-                  </div>
-                  <div *ngIf="formsubmit && formData.year_completed.errors" class="invalid-tooltip">
-                    <span *ngIf="formData.year_completed.errors.required"></span>
-                </div>
-                </div>
-
-              </div>
+                </div> 
+          
           </div>
 
           <div class="row">
@@ -64,7 +35,7 @@
               <label for="password2">Applicant Category</label>
 
               <select class="form-select" formArrayName="applicant_category">
-                <option value="0" selected="">{{searched_applicant?.data?.payment_details[0].applicant.application_category.name}}</option>
+                <option value="" selected="">{{searched_applicant?.data?.payment_details[0].applicant.application_category.name}}</option>
               </select>
             </div>
 
@@ -166,7 +137,7 @@
             </div>
            
             <div *ngIf="registration_model"  class="col-md-12 ">
-            <strong class="olams-h4"> Username: {{ registration_model.data.payment_details.applicant.applicant_details.applicant_type.necta.index_no}}</strong> 
+            <strong class="olams-h4"> Username: {{ registration_model.data.payment_details.applicant.applicant_details.applicant_type.none_necta.index_no}}</strong> 
             <br> 
              <strong style="color:rgb(239, 137, 12)">Note: Remeber to Keep you password safe for future use:</strong> 
             </div>
@@ -176,13 +147,19 @@
 
             </ng-template>
 
-            <ng-template #disableButn>
+            <ng-template #disableButn>              
               <button class="btn btn-outline-primary" disabled type="submit">Submit form</button>
-
             </ng-template>
 
             <ng-template #ShowButton>
-              <button class="btn btn-outline-primary" type="submit">Submit form</button>
+              <ng-template *ngIf="formsubmitting then ShowSubmittingTextBtn else showAsubmitttextBtn">
+              </ng-template>
+              <ng-template #ShowSubmittingTextBtn >
+                <button class="btn btn-outline-primary"  type="submit">Submitting</button>
+              </ng-template>
+              <ng-template #showAsubmitttextBtn>
+                <button class="btn btn-outline-primary"  type="submit">Submit form</button>
+              </ng-template>
 
             </ng-template>
            

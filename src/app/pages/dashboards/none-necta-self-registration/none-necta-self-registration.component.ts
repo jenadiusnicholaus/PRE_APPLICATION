@@ -4,6 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiCallService } from 'src/app/shared/necta-api-call.service';
 import { SelfRegistrationInterface } from 'src/app/shared/models/necta-models/registration-response-model';
 import { SearchedApplicantInterface } from 'src/app/shared/models/necta-models/searched-applicant-model';
+import { NoneNecta } from 'src/app/shared/none-necta-models/search-applicant';
+import { NoneNectaApiCallService } from 'src/app/shared/none-necta-api-call.service';
+import { NoneNectaSelfRegistration } from 'src/app/shared/none-necta-models/self-registration-model';
 
 
 @Component({
@@ -14,7 +17,7 @@ import { SearchedApplicantInterface } from 'src/app/shared/models/necta-models/s
 export class NoneNectaSelfRegistrationComponent implements OnInit {
 //  forms 
 registration_form: UntypedFormGroup; // bootstrap validation form
-constructor(private formBuilder: UntypedFormBuilder, private route: ActivatedRoute, private api_call_service:ApiCallService) { }
+constructor(private formBuilder: UntypedFormBuilder, private route: ActivatedRoute, private api_call_service:NoneNectaApiCallService) { }
 
 // Form submition
 submit: boolean;
@@ -22,8 +25,8 @@ formsubmit: boolean;
 formsubmitting:boolean =false
 
 // models
-searched_applicant: SearchedApplicantInterface
-registration_model: SelfRegistrationInterface
+searched_applicant: NoneNecta.SearchedApplicantINterface
+registration_model: NoneNectaSelfRegistration.SelfRegistrationInterface
 
 // index number:
 selectedOption ='s'
@@ -48,10 +51,8 @@ candidate_no
 ngOnInit(): void {
 
   this.registration_form = this.formBuilder.group({
-    candidate_type: [``],
-    school_number: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]+')]],
+    index_no: [``],    school_number: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]+')]],
     year_completed: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]+')]],
-    candidate_number: ['', [ Validators.pattern('[a-zA-Z0-9]+')]],
     applicant_category:  ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]+')]],
     transaction_id:  ['', [ Validators.pattern('[a-zA-Z0-9]+')]],
     password:  ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]+'), Validators.minLength(6)]],
@@ -64,19 +65,17 @@ ngOnInit(): void {
   });
 
 
-    this.route.queryParams.subscribe(params => {
+  this.route.queryParams.subscribe(params => {
       this.candidate_no = params['candidate_no']
-   
+      console.log(params)
       this.api_call_service.searchApplicant(params).subscribe((data) => {
         this.searched_applicant = data
+        console.log(data)
       })
     });
 
   this.submit = false;
   this.formsubmit = false;
-
-
-  
 }
 
 
@@ -84,9 +83,6 @@ ngOnInit(): void {
     return this.registration_form.controls;
   }
 
-  /**
-   * Bootstrap tooltip form validation submit method
-   */
   formSubmit() {
     this.formsubmit = true;
 
@@ -94,11 +90,11 @@ ngOnInit(): void {
     else {
       this.formsubmitting =true
       let body = {
-        "index_no": this.searched_applicant.data.new_index_no,
+        "index_no": this.searched_applicant.data.applicant.original_no,
         "secret_question": this.registration_form.value['question'],
         "secret_answer":this.registration_form.value['answer'],
         "password": this.registration_form.value['password'],
-        "applicant_type": "none-necta",
+        "applicant_type": "none_necta",
         "transaction_id": this.searched_applicant.data.payment_details[0].reference,
         "applicant_category": this.searched_applicant.data.payment_details[0].applicant.application_category.name
     }
