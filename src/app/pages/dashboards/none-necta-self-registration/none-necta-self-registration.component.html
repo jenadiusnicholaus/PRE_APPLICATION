@@ -13,14 +13,14 @@
                 <div class="col-md-6">
                   <div class="mb-3 position-relative">
                     <label for="validationTooltip03">Form Four Index Number</label>
-                    <input value="{{searched_applicant?.data?.payment_details[0].applicant.applicant_details.applicant_type.none_necta.index_no}}" formControlName="index_no" type="text" class="form-control" id="validationTooltip03" placeholder="Enter you form four index number">
+                    <input value="{{searched_applicant?.data?.payment_details.applicant.applicant_details.applicant_type.none_necta.index_no}}" formControlName="index_no" type="text" class="form-control" id="validationTooltip03" placeholder="Enter you form four index number">
                   </div>
                 </div>
       
                 <div class="col-md-6">
                   <div class="mb-3 position-relative">
                     <label for="validationTooltip04">Completion Year</label>
-                    <input value="{{searched_applicant?.data?.payment_details[0].applicant.applicant_details.applicant_type.none_necta.exam_year}}" formControlName="year_completed" type="text" class="form-control" id="validationTooltip04" placeholder="Enter your completion year">
+                    <input value="{{searched_applicant?.data?.payment_details.applicant.applicant_details.applicant_type.none_necta.exam_year}}" formControlName="year_completed" type="text" class="form-control" id="validationTooltip04" placeholder="Enter your completion year">
                   </div>
                 </div> 
           
@@ -35,7 +35,7 @@
               <label for="password2">Applicant Category</label>
 
               <select class="form-select" formArrayName="applicant_category">
-                <option value="" selected="">{{searched_applicant?.data?.payment_details[0].applicant.application_category.name}}</option>
+                <option value="" selected="">{{searched_applicant?.data?.payment_details.applicant.application_category.name}}</option>
               </select>
             </div>
 
@@ -44,7 +44,7 @@
                 <label for="password2">Transaction Reference id</label>
 
                 <input type="text" class="form-control" id="transaction_id" placeholder="Your Transaction id"
-                  formControlName="transaction_id" value="{{searched_applicant?.data?.payment_details[0]?.reference}}" [ngClass]="{'is-invalid': formsubmit && formData.transaction_id.errors}">
+                  formControlName="transaction_id" value="{{searched_applicant?.data?.payment_details?.reference}}" [ngClass]="{'is-invalid': formsubmit && formData.transaction_id.errors}">
                 <div *ngIf="formsubmit && formData.transaction_id.errors" class="invalid-tooltip">
                   <span *ngIf="formData.transaction_id.errors.required">Please provide a valid transaction_referece address.</span>
                 </div>
@@ -85,7 +85,7 @@
                 <div class="mb-3 position-relative">
                   <select  class="form-select"  formControlName="question" id="question" >
                     <option selected disabled value="" >Choose your Question</option>
-                    <option  *ngFor="let option of question" [value]="option.value">{{ option.label }}</option>
+                    <option 192.168.50.145 *ngFor="let option of question" [value]="option.value">{{ option.label }}</option>
                   </select>
                   <div *ngIf="formsubmit && formData.question.errors" class="invalid-tooltip">
                       <span *ngIf="formData.question.errors.required"></span>
@@ -109,7 +109,7 @@
 
             <div class="col-md-6">
                 <div class="mb-3 position-relative">
-                  <input type="text" value="{{searched_applicant?.data?.payment_details[0].applicant.applicant_details.phonenumber}}" class="form-control" id="phone_number" placeholder="Enter your Phone number"
+                  <input type="text" value="{{searched_applicant?.data?.payment_details.applicant.applicant_details.phonenumber}}" class="form-control" id="phone_number" placeholder="Enter your Phone number"
                     formControlName="phone_number" [ngClass]="{'is-invalid': formsubmit && formData.phone_number.errors}">
                   <div *ngIf="formsubmit && formData.phone_number.errors" class="invalid-tooltip">
                     <span *ngIf="formData.phone_number.errors.required">Please provide a valid Phone number.</span>
@@ -120,7 +120,7 @@
               <div class="col-md-6">
                 <div class="mb-3 position-relative">
                   <div class="input-group">
-                    <input value="{{searched_applicant?.data?.payment_details[0].applicant.applicant_details.email}}" type="email" class="form-control" id="email" formControlName="email"
+                    <input value="{{searched_applicant?.data?.payment_details.applicant.applicant_details.email}}" type="email" class="form-control" id="email" formControlName="email"
                       placeholder="Enter your email address (Eg. example@gmail.com)" 
                       [ngClass]="{'is-invalid': formsubmit && formData.email.errors}">
                     <div *ngIf="formsubmit && formData.email.errors" class="invalid-tooltip">

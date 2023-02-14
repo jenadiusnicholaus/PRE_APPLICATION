@@ -95,8 +95,8 @@ ngOnInit(): void {
         "secret_answer":this.registration_form.value['answer'],
         "password": this.registration_form.value['password'],
         "applicant_type": "none_necta",
-        "transaction_id": this.searched_applicant.data.payment_details[0].reference,
-        "applicant_category": this.searched_applicant.data.payment_details[0].applicant.application_category.name
+        "transaction_id": this.searched_applicant.data.payment_details.reference,
+        "applicant_category": this.searched_applicant.data.payment_details.applicant.application_category.name
     }
     this.api_call_service.selfRegistration(body).subscribe((data)=>{
       setTimeout(() => {

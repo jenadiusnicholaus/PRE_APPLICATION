@@ -24,6 +24,9 @@ export class NoneNectaApplicantComponent implements OnInit {
   // forms
   update_contact_applicant_form:  UntypedFormGroup;
 
+  // error message
+  error_message: string
+
   constructor(public formBuilder: UntypedFormBuilder, private route: ActivatedRoute, private api_call_service: NoneNectaApiCallService, private router: Router) { }
   // bread crumb items
   breadCrumbItems: Array<{}>;
@@ -34,7 +37,7 @@ export class NoneNectaApplicantComponent implements OnInit {
   typesubmit: boolean;
   rangesubmit: boolean;
   payments_found: boolean = false
-  loading_contact_form: boolean =false
+  loading: boolean =false
   control_no_exists_and_paid:boolean= false
   is_checking_status:boolean = false
 
@@ -73,28 +76,39 @@ export class NoneNectaApplicantComponent implements OnInit {
 
   searchApplicant(){
 
-    let body = {
-      "index_no":`${this.prefix_index_no}`,
-      "app_year":"",
-      "exam_year":  `${this.sufix_index_no}`,
-      "applicant_type": "none_necta"
-    }
- 
-    if (this.sufix_index_no != undefined){
+    if (this.sufix_index_no != undefined && this.sufix_index_no.length ===4 && this.sufix_index_no !== undefined ){
+      let body = {
+        "index_no":`${this.prefix_index_no}`,
+        "app_year":"",
+        "exam_year":  `${this.sufix_index_no}`,
+        "applicant_type": "none_necta"
+      }
+    this.loading = true
+    console.log(this.loading)
     this.api_call_service.searchApplicant(body).subscribe((data)=>{
       this.searched_applicant = data
-      // this.loading_contact_form= true
-      console.log(data)
-      if(this.searched_applicant.data.payment_details &&  this.searched_applicant.data.payment_details.control_number!== null){
-        this.payments_found = true
+     
+      if(data.status_code === 200) {
+        if(this.searched_applicant.data.payment_details && data?.data.payment_details.payment_status !== null  &&  this.searched_applicant.data.payment_details.control_number!== null){
+          this.payments_found = true
+  
+          if( data?.data.payment_details.payment_status === 0  )   {
+            this.control_no_exists_and_paid = false
+            this.loading= false
+          }
+          else{
+            this.control_no_exists_and_paid = true
+            this.loading= false
+          }
+        } 
 
-        if( data?.data.payment_details.payment_status === 0)   {
-          this.control_no_exists_and_paid = false
-        }
-        else{
-          this.control_no_exists_and_paid = true
-        }
-      } 
+      }
+      else if (data .status_code = 500){
+        this.error_message = data.message 
+        this.loading= false
+
+      }
+    
     });
   }
   }
@@ -140,7 +154,7 @@ export class NoneNectaApplicantComponent implements OnInit {
       }
     })
 
-    console.log(body)
+    
   }
     
   }
@@ -154,7 +168,7 @@ export class NoneNectaApplicantComponent implements OnInit {
       "applicant_type": "none_necta"
     }
 
-    console.log(body)
+    
 
     setTimeout(() => {
       this.is_checking_status = true
@@ -180,7 +194,6 @@ export class NoneNectaApplicantComponent implements OnInit {
     "exam_year": `${this.searched_applicant?.data?.applicant.exam_year}`,
     "applicant_type": "none_necta",
   
-
   }
 
   this.router.navigate(['/dashboards/none-necta-registration'], { queryParams: params });
