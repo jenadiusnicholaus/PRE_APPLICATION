@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MakeRequestService } from './make-request.service';
 import { ApplicantPaymentStatusInterface } from './models/necta-models/payment-status-model';
-import { NoneNecta } from './none-necta-models/search-applicant';
-import { NoneNectaSelfRegistration } from './none-necta-models/self-registration-model';
-import { NoneNactaContactInfos } from './none-necta-models/updated-contact-model';
+import { NoneNecta } from './models/none-necta-models/search-applicant';
+import { NoneNectaSelfRegistration } from './models/none-necta-models/self-registration-model';
+import { NoneNactaContactInfos } from './models/none-necta-models/updated-contact-model';
 import { Constants } from './utils';
 
 @Injectable({

@@ -1,10 +1,10 @@
 import { BootstrapOptions, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NoneNectaApiCallService } from 'src/app/shared/none-necta-api-call.service';
-import { NoneNecta } from 'src/app/shared/none-necta-models/search-applicant';
+import { NoneNecta } from 'src/app/shared/models/none-necta-models/search-applicant';
 
 import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
-import { NoneNactaContactInfos } from 'src/app/shared/none-necta-models/updated-contact-model';
+import { NoneNactaContactInfos } from 'src/app/shared/models/none-necta-models/updated-contact-model';
 import { ApplicantPaymentStatusInterface } from 'src/app/shared/models/necta-models/payment-status-model';
 
 
