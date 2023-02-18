@@ -7,7 +7,7 @@ import { ApplicantExistenceInterface } from './models/necta-models/applicant-exi
 import { ApplicantType } from './models/necta-models/applicant-type';
 import { ApplicantContactInterface } from './models/necta-models/contact-info-model';
 import { ApplicantPaymentStatusInterface } from './models/necta-models/payment-status-model';
-import { SelfRegistrationInterface } from './models/necta-models/registration-response-model';
+import { NectaSelfRegistration } from './models/necta-models/registration-response-model';
 import { SchoolInterface } from './models/necta-models/school-model';
 import {SearchedApplicantInterface} from './models/necta-models/searched-applicant-model';
 import { Constants } from './utils';
@@ -76,10 +76,10 @@ export class ApiCallService {
           return response
         }
         
-  selfRegistration(body:any): Observable<SelfRegistrationInterface>{
+  selfRegistration(body:any): Observable<NectaSelfRegistration.SelfRegistrationInterface>{
             let headers = this.makerequestService.getHeaders({'Content-Type': 'application/json',})
             let url = `${this.APPLICATION_BASE_URL}registration/`
-            let response = this.makerequestService.post<SelfRegistrationInterface>(headers, url, body);
+            let response = this.makerequestService.post<NectaSelfRegistration.SelfRegistrationInterface>(headers, url, body);
             return response
           }
 

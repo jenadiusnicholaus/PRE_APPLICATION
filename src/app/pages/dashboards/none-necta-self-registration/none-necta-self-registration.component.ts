@@ -2,7 +2,7 @@ import { Component, OnInit,HostBinding } from '@angular/core';
 import { UntypedFormBuilder, Validators, UntypedFormGroup, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiCallService } from 'src/app/shared/necta-api-call.service';
-import { SelfRegistrationInterface } from 'src/app/shared/models/necta-models/registration-response-model';
+// import { SelfRegistrationInterface } from 'src/app/shared/models/necta-models/registration-response-model';
 import { SearchedApplicantInterface } from 'src/app/shared/models/necta-models/searched-applicant-model';
 import { NoneNecta } from 'src/app/shared/models/none-necta-models/search-applicant';
 import { NoneNectaApiCallService } from 'src/app/shared/none-necta-api-call.service';

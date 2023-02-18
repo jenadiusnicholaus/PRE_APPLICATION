@@ -203,10 +203,7 @@
         </div>
        
         <div class="d-flex justify-content-end">
-          <ng-container *ngIf="control_number_generated == true" >
-            <button  _ngcontent-jhm-c256="" type="submit" class="btn btn-outline-danger disabled"><i _ngcontent-jhm-c256="" class="bx bx-smile font-size-16 align-middle me-2"></i> pay to continue </button>
-           
-          </ng-container>
+            <button *ngIf="control_number_generated == true"  _ngcontent-jhm-c256="" type="submit" class="btn btn-outline-danger disabled"><i _ngcontent-jhm-c256="" class="bx bx-smile font-size-16 align-middle me-2"></i> pay to continue </button>
            <button *ngIf="control_number_generated == false" _ngcontent-jhm-c256="" type="submit" class="btn btn-outline-primary"><i _ngcontent-jhm-c256="" class="bx bx-smile font-size-16 align-middle me-2"></i> submit </button>
         </div>
       <div>

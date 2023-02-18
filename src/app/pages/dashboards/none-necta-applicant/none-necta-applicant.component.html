@@ -22,7 +22,7 @@
           </div>
         </div>
         
-        <div *ngIf="loading" class="col-md-12 text-center">
+        <div *ngIf="loading && error_message===''" class="col-md-12 text-center">
           <div role="status" class="ms-2 spinner-border text-info">
             <span class="visually-hidden">Loading...</span>
           </div>

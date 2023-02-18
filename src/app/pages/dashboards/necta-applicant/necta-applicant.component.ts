@@ -234,11 +234,13 @@ export class NectaApplicantComponent implements OnInit {
         "email": `${email}`
 
       }
+      console.log(body)
       this.api_call_service.saveContactInfos(body).subscribe((data) => {
-        // if data.data
-
+        // if data.databody
+        console.log(data)
         this.applicant_contact_info_model = data
         if (data.status_code == 200) {
+          console.log(data)
           this.getPaymentStatus()
         }
       })
